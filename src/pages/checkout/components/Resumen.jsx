@@ -18,7 +18,6 @@ export const Resumen = () => {
         navigate(`/pedidos`);
       }
     };
-
     callEndpoint(
       api.pedido.createPedido({
         direccionEnvio: "catamarca 123",
