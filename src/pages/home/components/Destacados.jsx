@@ -1,9 +1,10 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import useFetchAndLoad from "../../../hooks/useFetch";
 import api from "../../../services";
-import Carousel from "better-react-carousel";
 import { CardImage } from "../../../components/card/CardImage";
+
+import ItemsCarousel from "react-items-carousel";
 
 export const Destacados = () => {
   const { callEndpoint } = useFetchAndLoad();
@@ -19,6 +20,8 @@ export const Destacados = () => {
     callEndpoint(api.producto.getProductosDestacados(), responseDestacados);
   };
 
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const chevronWidth = 40;
   useEffect(() => {
     getDestacados();
   }, []);
@@ -30,20 +33,30 @@ export const Destacados = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Carousel cols={6} rows={1} gap={5} loop={true} autoplay={5000}>
+        <ItemsCarousel
+          infiniteLoop={true}
+          requestToChangeActive={setActiveItemIndex}
+          activeItemIndex={activeItemIndex}
+          numberOfCards={6}
+          gutter={20}
+          leftChevron={<Button>{"<"}</Button>}
+          rightChevron={<Button>{">"}</Button>}
+          outsideChevron
+          chevronWidth={chevronWidth}
+        >
           {destacados.map(
             ({ id, nombreProducto, precioProducto, imageProducto }) => (
-              <Carousel.Item>
+              <div>
                 <CardImage
                   id={id}
                   nombre={nombreProducto}
                   precio={precioProducto}
                   image={imageProducto}
                 />
-              </Carousel.Item>
+              </div>
             )
           )}
-        </Carousel>
+        </ItemsCarousel>
       </Grid>
     </Grid>
   );
