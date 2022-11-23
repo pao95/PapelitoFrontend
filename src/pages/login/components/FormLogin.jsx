@@ -7,8 +7,36 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 export const FormLogin = () => {
+  const { login, authenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    authenticated && navigate(`/home`);
+  }, [authenticated]);
+
+  const [dataForm, setDataForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setDataForm({
+      ...dataForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = () => {
+    console.log(dataForm);
+    login(dataForm);
+  };
   return (
     <Card>
       <CardContent>
@@ -25,6 +53,8 @@ export const FormLogin = () => {
                     required
                     id="outlined-required"
                     label="Correo"
+                    name="email"
+                    onChange={handleChange}
                     type="email"
                     fullWidth
                     InputLabelProps={{
@@ -37,6 +67,8 @@ export const FormLogin = () => {
                     required
                     id="outlined-number"
                     label="Contraseña"
+                    name="password"
+                    onChange={handleChange}
                     type="password"
                     show
                     fullWidth
@@ -46,7 +78,7 @@ export const FormLogin = () => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant="contained" fullWidth>
+                  <Button variant="contained" fullWidth onClick={handleLogin}>
                     Ingresar
                   </Button>
                 </Grid>

@@ -25,8 +25,10 @@ const useFetchAndLoad = () => {
         method,
         url,
         data: body,
+
+        // headers: { "content-type": "application/x-www-form-urlencoded" },
       });
-      if (result.status !== 200) {
+      if (result.status !== 200 && result.status !== 201) {
         throw Error(`${result.data.message} ${result.data.title}`);
       }
 
@@ -37,7 +39,7 @@ const useFetchAndLoad = () => {
       return funcSuccess({ status: true, data: result.data });
     } catch (err) {
       /* TODO: Logear errores? */
-      console.log(err);
+      // console.log(err);
       return funcSuccess({
         status: false,
         message: `${err.message}: ${err?.response?.data?.message}`,

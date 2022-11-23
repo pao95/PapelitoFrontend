@@ -24,6 +24,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ResumenCarrito } from "../../pages/carrito/componentes/ResumenCarrito";
 import { CarritoContext } from "../../context/CarritoContext";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -66,6 +68,8 @@ export default function NavbarPapepilito() {
   const [anchorElCarrito, setAnchorElCarrito] = React.useState(null);
   const [cantidadItems, setCantidadItems] = React.useState(0);
 
+  const { login, logout, authenticated } = useContext(AuthContext);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [carritoAnchor, setCarritoAnchor] = React.useState(null);
   const isMenuOpen = anchorEl;
@@ -90,6 +94,12 @@ export default function NavbarPapepilito() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    // navigate(`/user`);
+  };
+
+  const handleUSer = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
     navigate(`/user`);
   };
   const handleCarritoMenuClose = () => {
@@ -98,6 +108,23 @@ export default function NavbarPapepilito() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleSalir = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    logout();
+  };
+  const handleLogin = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    navigate(`/login`);
+  };
+
+  const handleRegistro = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    navigate(`/registro`);
   };
 
   const menuId = "primary-search-account-menu";
@@ -119,8 +146,13 @@ export default function NavbarPapepilito() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Salir</MenuItem>
+      {authenticated && <MenuItem onClick={handleUSer}>Perfil</MenuItem>}
+
+      {authenticated && <MenuItem onClick={handleSalir}>Salir</MenuItem>}
+      {!authenticated && <MenuItem onClick={handleLogin}>Login</MenuItem>}
+      {!authenticated && (
+        <MenuItem onClick={handleRegistro}>Registrarse</MenuItem>
+      )}
     </Menu>
   );
 

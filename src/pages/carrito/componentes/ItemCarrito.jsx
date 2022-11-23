@@ -19,6 +19,8 @@ export const ItemCarrito = (props) => {
     subtotal,
     editable,
   } = props;
+
+  console.log(subtotal);
   return (
     <Card sx={{ display: "flex", justifyContent: "space-between" }}>
       <CardMedia
@@ -118,7 +120,7 @@ export const ItemCarrito = (props) => {
                       component="div"
                       textAlign={"center"}
                     >
-                      17
+                      {cantidad}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -143,7 +145,7 @@ export const ItemCarrito = (props) => {
                     component="div"
                     textAlign={"center"}
                   >
-                    $200
+                    ${cantidad * precioProducto}
                   </Typography>
                 </Grid>
               </Grid>

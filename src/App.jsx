@@ -6,20 +6,23 @@ import { PublicLayout } from "./components/layout/PublicLayout";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { CarritoProvider } from "./context/CarritoProvider";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
-    <CarritoProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <PublicLayout>
-            <div style={{ minHeight: "fit-content", display: "block" }}>
-              <AppRouter />
-            </div>
-          </PublicLayout>
-        </BrowserRouter>
-      </Provider>
-    </CarritoProvider>
+    <AuthProvider>
+      <CarritoProvider>
+        <Provider store={store}>
+          <BrowserRouter>
+            <PublicLayout>
+              <div style={{ minHeight: "fit-content", display: "block" }}>
+                <AppRouter />
+              </div>
+            </PublicLayout>
+          </BrowserRouter>
+        </Provider>
+      </CarritoProvider>
+    </AuthProvider>
   );
 }
 
