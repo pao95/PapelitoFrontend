@@ -32,7 +32,9 @@ export const CarritoProvider = ({ children }) => {
   };
 
   return (
-    <CarritoContext.Provider value={{ carrito, updateCarrito, getTotal }}>
+    <CarritoContext.Provider
+      value={{ carrito, updateCarrito, getTotal, setCarrito }}
+    >
       {children}
     </CarritoContext.Provider>
   );

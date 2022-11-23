@@ -8,8 +8,10 @@ export const ListadoProductosProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { callEndpoint } = useFetchAndLoad();
+  const [page, setPage] = useState(1);
 
   const [checkedCategories, setCheckedCategories] = useState([]);
+  const [totalSizeResults, setTotalSizeResults] = useState(0);
 
   const [categorias, setCategorias] = useState([]);
 
@@ -24,19 +26,21 @@ export const ListadoProductosProvider = ({ children }) => {
     callEndpoint(api.categoria.getAllCategorias(), responseCategorias);
   };
 
-  const getProductosCategoria = (idCategoria) => {
+  const getProductosCategoria = (idCategoria, page = 1, size = 10) => {
     const responseProductosByCategoria = ({ status, data }) => {
       if (status) {
         setProductosSearched(data);
+        setTotalSizeResults(data.totalPages);
       }
     };
     callEndpoint(
-      api.producto.getProductosByCategoria(idCategoria),
+      api.producto.getProductosByCategoria(idCategoria, page, size),
       responseProductosByCategoria
     );
   };
 
   useEffect(() => {
+    setPage(1);
     getCategorias();
     const idCategoria = searchParams.get("categoria");
     getProductosCategoria(idCategoria);
@@ -49,7 +53,10 @@ export const ListadoProductosProvider = ({ children }) => {
         checkedCategories,
         setCheckedCategories,
         getProductosCategoria,
+        totalSizeResults,
         productosSearched,
+        page,
+        setPage,
       }}
     >
       {children}

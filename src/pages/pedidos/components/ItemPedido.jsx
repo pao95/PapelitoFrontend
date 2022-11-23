@@ -13,7 +13,7 @@ export const ItemPedido = (props) => {
   const { id, fecha, nombreEstado, total, detallePedido } = props;
   return (
     <Grid container spacing={2}>
-      <Grid item sx={12}>
+      <Grid item xs={12}>
         <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

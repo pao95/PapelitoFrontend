@@ -10,9 +10,9 @@ export const Details = () => {
           <Grid item xs={12}>
             <FormDatosGenerales />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormPassword />
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>

@@ -170,7 +170,7 @@ export const ResumenCarrito = () => {
                                 fontSize: "12px",
                               }}
                             >
-                              $200
+                              ${cantidad * precioProducto}
                             </Typography>
                           </Grid>
                         </Grid>

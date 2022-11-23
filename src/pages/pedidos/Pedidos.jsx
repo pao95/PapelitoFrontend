@@ -14,7 +14,12 @@ export const Pedidos = () => {
   const obtenerPedidos = () => {
     const responseObtenerPedidos = ({ status, data }) => {
       if (status) {
-        setPedidos(data);
+        const idUser = localStorage.getItem("idUser");
+        const filterPedidos = data.filter(
+          (item) => item.idUsuario.toString() === idUser.toString()
+        );
+
+        setPedidos(filterPedidos);
       }
     };
 

@@ -14,13 +14,14 @@ const useAxiosPrivate = () => {
     const controller = new AbortController();
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        // if (!config.headers.Authorization) {
-        //   // const token = localStorage.getItem("token");
-        //   config.signal = controller.signal;
-        //   config.baseURL = import.meta.env.VITE_API;
+        if (!config.headers.Authorization) {
+          const token = localStorage.getItem("access_token") || "";
+          //   config.signal = controller.signal;
+          //   config.baseURL = import.meta.env.VITE_API;
 
-        //   // config.headers.Authorization = `Bearer ${token}`;
-        // }
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+
         config.baseURL = import.meta.env.VITE_API;
 
         return config;

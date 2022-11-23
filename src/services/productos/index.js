@@ -12,10 +12,10 @@ const getProductosOfertas = () => {
   };
 };
 
-const getProductosByCategoria = (idCategoria) => {
+const getProductosByCategoria = (idCategoria, page, size) => {
   return {
     method: "GET",
-    url: `productos/categoria/paged?categoria=${idCategoria}`,
+    url: `productos/categoria/paged?categoria=${idCategoria}&page=${page}&size=${size}`,
   };
 };
 

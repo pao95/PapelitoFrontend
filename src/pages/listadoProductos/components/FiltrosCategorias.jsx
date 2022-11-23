@@ -24,6 +24,7 @@ export const FiltrosCategorias = () => {
     checkedCategories,
     setCheckedCategories,
     getProductosCategoria,
+    setPage,
   } = useContext(ListadoProductosContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -57,6 +58,7 @@ export const FiltrosCategorias = () => {
   };
 
   const handleAplicar = () => {
+    setPage(1);
     const idCategoria = categorias.filter(
       (cat) => cat.nombreCategoria === checkedCategories[0]
     )[0].id;

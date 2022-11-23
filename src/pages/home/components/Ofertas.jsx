@@ -24,18 +24,22 @@ export const Ofertas = () => {
     getOfertas();
   }, []);
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={2}
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
       <Grid item xs={12}>
         <Typography variant="h6" textAlign={"center"} fontWeight={600}>
           Ofertas
         </Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={11}>
         <ItemsCarousel
           infiniteLoop={true}
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
-          numberOfCards={6}
+          numberOfCards={5}
           gutter={20}
           leftChevron={<Button>{"<"}</Button>}
           rightChevron={<Button>{">"}</Button>}
